@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TW Studio — Apps That Transform Coaching Businesses</title>
+  <meta name="description" content="TW Studio builds premium mobile apps exclusively for fitness coaches. Turn your coaching method into a world-class app experience." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep:    #020204;
+      --bg-base:    #05050A;
+      --bg-elevated:#0B0B14;
+      --surface:    rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.07);
+      --border:     rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text:       #EDEDEF;
+      --text-muted: #8A8F98;
+      --text-faint: #4A4F58;
+      --accent:     #00FF87;
+      --accent-glow:rgba(0,255,135,0.18);
+      --accent2:    #FF6B35;
+      --accent2-glow:rgba(255,107,53,0.18);
+      --accent3:    #5E6AD2;
+      --accent3-glow:rgba(94,106,210,0.18);
+      --radius:     16px;
+      --radius-sm:  8px;
+      --radius-lg:  24px;
+      --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out:   cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg-base);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--accent); color: #000; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Scrollbar ──────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--accent3); border-radius: 2px; }
+
+    /* ─── Typography Scale ───────────────────────────────────────── */
+    .serif { font-family: 'Bodoni Moda', Georgia, serif; }
+    h1, h2, h3, h4 { line-height: 1.1; letter-spacing: -0.02em; }
+    .display-xl { font-family: 'Bodoni Moda', serif; font-size: clamp(3rem, 8vw, 7.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .display-lg { font-family: 'Bodoni Moda', serif; font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.05; }
+    .display-md { font-family: 'Bodoni Moda', serif; font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 600; line-height: 1.1; }
+    .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    .label-accent { color: var(--accent); }
+    .text-muted { color: var(--text-muted); }
+
+    /* ─── Layout Helpers ─────────────────────────────────────────── */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+    section { position: relative; }
+
+    /* ─── Glass Card ─────────────────────────────────────────────── */
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .glass:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+    }
+    .glass-glow:hover {
+      box-shadow: 0 0 40px var(--accent-glow), 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* ─── Buttons ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 100px; font-family: 'Jost', sans-serif;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none;
+      transition: all 0.25s var(--ease); position: relative; overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      opacity: 0; transition: opacity 0.2s;
+      background: rgba(255,255,255,0.1);
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--accent); color: #000;
+      box-shadow: 0 0 30px var(--accent-glow), 0 4px 20px rgba(0,255,135,0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 50px rgba(0,255,135,0.4), 0 8px 30px rgba(0,255,135,0.35);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+    }
+    .btn-ghost { background: transparent; color: var(--accent); padding: 10px 20px; }
+    .btn-ghost:hover { background: var(--accent-glow); }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ─── Ambient Blobs (background) ─────────────────────────────── */
+    .blob-container {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(120px); opacity: 0.07;
+      animation: blobDrift 18s ease-in-out infinite;
+    }
+    .blob-1 { width: 700px; height: 700px; background: var(--accent); top: -200px; left: -100px; animation-delay: 0s; }
+    .blob-2 { width: 600px; height: 600px; background: var(--accent3); top: 40%; right: -150px; animation-delay: -6s; }
+    .blob-3 { width: 500px; height: 500px; background: var(--accent2); bottom: 0; left: 30%; animation-delay: -12s; }
+    @keyframes blobDrift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -60px) scale(1.05); }
+      66% { transform: translate(-30px, 40px) scale(0.95); }
+    }
+
+    /* ─── Noise Texture Overlay ──────────────────────────────────── */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+      opacity: 0.025;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 40px;
+      transition: all 0.4s var(--ease);
+    }
+    nav.scrolled {
+      background: rgba(5,5,10,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Bodoni Moda', serif; font-size: 1.4rem; font-weight: 700;
+    }
+    .nav-logo-mark {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Jost', sans-serif; font-weight: 700; font-size: 0.85rem; color: #000;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100dvh; display: flex; align-items: center;
+      padding: 120px 0 80px; position: relative; z-index: 2;
+    }
+    .hero-content { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 100px;
+      background: var(--surface); border: 1px solid var(--border);
+      margin-bottom: 32px; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+    .hero-headline { margin-bottom: 28px; }
+    .hero-headline .line { overflow: hidden; }
+    .hero-headline .line span { display: block; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, #00C6FF 50%, var(--accent3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted);
+      max-width: 560px; margin-bottom: 48px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 80px; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; max-width: 560px;
+      background: var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .stat-item {
+      background: var(--bg-elevated); padding: 24px 28px;
+    }
+    .stat-num {
+      font-family: 'Bodoni Moda', serif; font-size: 2.5rem; font-weight: 900;
+      color: var(--text); display: block;
+    }
+    .stat-num .accent-char { color: var(--accent); }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.05em; margin-top: 4px; }
+    /* Hero right — mockup */
+    .hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hero-visual { position: relative; display: flex; justify-content: center; }
+    .phone-mockup-wrap {
+      position: relative; width: 280px;
+      animation: floatPhone 6s ease-in-out infinite;
+    }
+    @keyframes floatPhone {
+      0%,100%{ transform: translateY(0) rotate(-2deg); }
+      50%{ transform: translateY(-18px) rotate(2deg); }
+    }
+    .phone-mockup {
+      width: 280px; height: 580px; border-radius: 40px;
+      background: linear-gradient(160deg, #0F0F1A 0%, #0A0A14 100%);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 8px rgba(255,255,255,0.03), 0 30px 100px rgba(0,0,0,0.8), 0 0 60px var(--accent-glow);
+      overflow: hidden; position: relative;
+    }
+    .phone-screen {
+      position: absolute; inset: 0; padding: 20px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .phone-status { display: flex; justify-content: space-between; align-items: center; padding: 0 4px; }
+    .phone-time { font-size: 0.7rem; font-weight: 600; }
+    .phone-icons { display: flex; gap: 4px; }
+    .phone-icon-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .phone-header { padding: 8px 4px 0; }
+    .phone-greeting { font-size: 0.65rem; color: var(--text-muted); }
+    .phone-title { font-family: 'Bodoni Moda', serif; font-size: 1.1rem; font-weight: 700; }
+    .phone-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 14px; flex-shrink: 0;
+    }
+    .phone-card-label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 4px; }
+    .phone-card-big { font-family: 'Bodoni Moda', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+    .phone-card-sub { font-size: 0.6rem; color: var(--text-muted); }
+    .phone-bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 40px; margin-top: 8px; }
+    .phone-bar { flex: 1; border-radius: 3px 3px 0 0; background: rgba(0,255,135,0.3); }
+    .phone-bar.active { background: var(--accent); }
+    .phone-clients { display: flex; flex-direction: column; gap: 8px; }
+    .phone-client { display: flex; align-items: center; gap: 8px; }
+    .phone-avatar { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; }
+    .phone-client-info { flex: 1; }
+    .phone-client-name { font-size: 0.62rem; font-weight: 600; }
+    .phone-client-sub { font-size: 0.55rem; color: var(--text-muted); }
+    .phone-client-badge {
+      font-size: 0.5rem; padding: 2px 6px; border-radius: 100px;
+      background: var(--accent-glow); color: var(--accent); font-weight: 600;
+    }
+    .phone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100px; height: 28px; background: #000; border-radius: 0 0 16px 16px;
+    }
+    /* Floating cards around phone */
+    .float-card {
+      position: absolute;
+      padding: 12px 16px; border-radius: 14px;
+      background: rgba(11,11,20,0.9); border: 1px solid var(--border);
+      backdrop-filter: blur(20px); font-size: 0.75rem; white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .float-card-1 { top: 60px; left: -90px; animation: floatCard1 7s ease-in-out infinite; }
+    .float-card-2 { bottom: 100px; right: -80px; animation: floatCard2 8s ease-in-out infinite; }
+    .float-card-3 { top: 220px; right: -100px; animation: floatCard3 6s ease-in-out infinite; }
+    @keyframes floatCard1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes floatCard2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+    @keyframes floatCard3 { 0%,100%{transform:translateX(0)} 50%{transform:translateX(6px)} }
+    .float-icon { font-size: 1.2rem; margin-bottom: 2px; }
+    .float-val { font-weight: 700; font-size: 1rem; }
+    .float-label { color: var(--text-muted); font-size: 0.68rem; }
+
+    /* ─── LOGO BAR ────────────────────────────────────────────────── */
+    #logos {
+      position: relative; z-index: 2; padding: 40px 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .logos-track {
+      display: flex; gap: 64px; align-items: center;
+      animation: logoScroll 25s linear infinite;
+      width: max-content;
+    }
+    @keyframes logoScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .logo-item {
+      font-family: 'Bodoni Moda', serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--text-faint); letter-spacing: 0.05em; white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .logo-item:hover { color: var(--text-muted); }
+
+    /* ─── SECTION HEADER ─────────────────────────────────────────── */
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header .label { margin-bottom: 16px; display: block; }
+    .section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 540px; margin: 16px auto 0; line-height: 1.7; }
+
+    /* ─── SERVICES ───────────────────────────────────────────────── */
+    #services { padding: 120px 0; position: relative; z-index: 2; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .service-card {
+      background: var(--bg-elevated); padding: 48px 40px;
+      position: relative; overflow: hidden; cursor: default;
+      transition: background 0.3s var(--ease);
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(0,255,135,0.04), transparent 40%);
+      transition: opacity 0.3s; opacity: 0;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover { background: rgba(11,11,20,0.9); }
+    .service-num {
+      font-family: 'Bodoni Moda', serif; font-size: 5rem; font-weight: 900;
+      color: var(--text-faint); line-height: 1; margin-bottom: 24px;
+      opacity: 0.15;
+    }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 1.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all 0.3s var(--ease);
+    }
+    .service-card:hover .service-icon {
+      background: var(--accent-glow); border-color: rgba(0,255,135,0.3);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .service-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; }
+    .service-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+    .service-arrow {
+      margin-top: 32px; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; font-weight: 600; color: var(--accent); opacity: 0;
+      transform: translateX(-8px); transition: all 0.3s var(--ease);
+    }
+    .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ─── PROCESS ────────────────────────────────────────────────── */
+    #process { padding: 120px 0; position: relative; z-index: 2; }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .process-step { position: relative; }
+    .process-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 28px; right: -16px;
+      width: 32px; height: 1px; background: linear-gradient(to right, var(--border), transparent);
+    }
+    .step-num-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bodoni Moda', serif; font-size: 1.2rem; font-weight: 700;
+      flex-shrink: 0; transition: all 0.3s var(--ease);
+    }
+    .process-step:hover .step-num {
+      border-color: var(--accent); color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .step-desc { color: var(--text-muted); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ─── RESULTS / PORTFOLIO ────────────────────────────────────── */
+    #results { padding: 120px 0; position: relative; z-index: 2; }
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .result-card {
+      background: var(--bg-elevated); padding: 56px 48px;
+      display: flex; flex-direction: column; gap: 40px;
+      transition: background 0.3s;
+    }
+    .result-card:hover { background: rgba(11,11,22,0.95); }
+    .result-card.featured { grid-column: span 1; background: linear-gradient(135deg, rgba(0,255,135,0.06) 0%, rgba(94,106,210,0.04) 100%); }
+    .result-metric { }
+    .metric-value {
+      font-family: 'Bodoni Moda', serif; font-size: 4.5rem; font-weight: 900;
+      line-height: 1; color: var(--text);
+    }
+    .metric-value .unit { color: var(--accent); }
+    .metric-label { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
+    .result-quote { font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; font-style: italic; }
+    .result-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-glow), var(--accent3-glow)); border: 2px solid rgba(0,255,135,0.3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: var(--accent); }
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-title { color: var(--text-muted); font-size: 0.8rem; }
+    .result-metrics-row { display: flex; gap: 32px; }
+    .mini-metric .val { font-family: 'Bodoni Moda', serif; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .mini-metric .lbl { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────────── */
+    #testimonials { padding: 120px 0; position: relative; z-index: 2; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card { padding: 36px; display: flex; flex-direction: column; gap: 20px; transition: transform 0.3s var(--ease); }
+    .testimonial-card:hover { transform: translateY(-4px); }
+    .stars { display: flex; gap: 3px; }
+    .star { color: var(--accent); font-size: 0.9rem; }
+    .testimonial-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; flex: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .t-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-elevated); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .t-name { font-weight: 600; font-size: 0.9rem; }
+    .t-handle { color: var(--text-muted); font-size: 0.78rem; }
+
+    /* ─── PRICING ────────────────────────────────────────────────── */
+    #pricing { padding: 120px 0; position: relative; z-index: 2; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 980px; margin: 0 auto; }
+    .pricing-card { padding: 40px 36px; position: relative; overflow: hidden; }
+    .pricing-card.popular {
+      border-color: rgba(0,255,135,0.3);
+      background: linear-gradient(160deg, rgba(0,255,135,0.06) 0%, rgba(94,106,210,0.04) 100%);
+      box-shadow: 0 0 60px rgba(0,255,135,0.08), 0 0 0 1px rgba(0,255,135,0.2);
+    }
+    .popular-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--accent); color: #000; font-size: 0.68rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 100px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .plan-name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .plan-price {
+      font-family: 'Bodoni Moda', serif; font-size: 3.5rem; font-weight: 900;
+      line-height: 1; margin-bottom: 8px;
+    }
+    .plan-price sup { font-size: 1.5rem; vertical-align: super; color: var(--text-muted); }
+    .plan-price .period { font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+    .plan-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 28px; line-height: 1.6; }
+    .plan-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .plan-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--text-muted); }
+    .plan-feature svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+    .plan-feature.included { color: var(--text); }
+    .plan-feature.included svg { color: var(--accent); }
+    .plan-feature.excluded svg { color: var(--text-faint); }
+    .plan-cta { width: 100%; text-align: center; justify-content: center; }
+
+    /* ─── FAQ ────────────────────────────────────────────────────── */
+    #faq { padding: 120px 0; position: relative; z-index: 2; }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 4px; }
+    .faq-item { border-radius: var(--radius-sm); overflow: hidden; }
+    .faq-question {
+      width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--border);
+      padding: 20px 24px; cursor: pointer; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; font-family: 'Jost', sans-serif;
+      font-size: 1rem; font-weight: 500; color: var(--text); transition: all 0.2s;
+      border-radius: var(--radius-sm);
+    }
+    .faq-question:hover { background: var(--surface-hover); border-color: var(--border-hover); }
+    .faq-question.open { border-color: rgba(0,255,135,0.2); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+    .faq-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--accent); transition: transform 0.3s var(--ease); }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      background: rgba(0,255,135,0.02); border: 1px solid rgba(0,255,135,0.15);
+      border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      padding: 0 24px; max-height: 0; overflow: hidden;
+      transition: max-height 0.4s var(--ease), padding 0.3s;
+      color: var(--text-muted); font-size: 0.925rem; line-height: 1.75;
+    }
+    .faq-answer.open { max-height: 300px; padding: 20px 24px; }
+
+    /* ─── CTA SECTION ────────────────────────────────────────────── */
+    #cta { padding: 140px 0; position: relative; z-index: 2; }
+    .cta-box {
+      border-radius: 32px; padding: 80px;
+      background: linear-gradient(135deg, rgba(0,255,135,0.06) 0%, rgba(94,106,210,0.06) 50%, rgba(255,107,53,0.04) 100%);
+      border: 1px solid rgba(0,255,135,0.15);
+      box-shadow: 0 0 100px rgba(0,255,135,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(800px circle at 50% 0%, rgba(0,255,135,0.06), transparent 60%);
+      pointer-events: none;
+    }
+    .cta-box .display-lg { margin-bottom: 20px; }
+    .cta-box p { color: var(--text-muted); max-width: 480px; margin: 0 auto 48px; font-size: 1.05rem; line-height: 1.7; }
+    .cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-trust { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.825rem; margin-top: 24px; justify-content: center; }
+    .cta-trust svg { width: 16px; height: 16px; color: var(--accent); }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border); padding: 60px 0 40px;
+      position: relative; z-index: 2;
+    }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand { }
+    .footer-logo { margin-bottom: 16px; }
+    .footer-tagline { color: var(--text-muted); font-size: 0.875rem; line-height: 1.7; max-width: 260px; }
+    .footer-col h4 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.875rem; color: var(--text-muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 0.8rem; }
+    .footer-accent { color: var(--accent); }
+
+    /* ─── Reveal Animations ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── Cursor Glow ────────────────────────────────────────────── */
+    .cursor-glow {
+      position: fixed; width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,135,0.04) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+      .stat-num { font-size: 1.8rem; }
+      .stat-item { padding: 16px; }
+      .services-grid, .results-grid, .process-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 40px 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      section { padding: 80px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ambient Blobs -->
+<div class="blob-container" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<!-- Cursor Glow -->
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────────────────── -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="TW Studio home">
+      <div class="nav-logo-mark" aria-hidden="true">TW</div>
+      TW Studio
+    </a>
+    <div class="nav-links" role="list">
+      <a href="#services" role="listitem">Services</a>
+      <a href="#process" role="listitem">Process</a>
+      <a href="#results" role="listitem">Results</a>
+      <a href="#pricing" role="listitem">Pricing</a>
+      <a href="#faq" role="listitem">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#cta" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Start Your App
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────────────── -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-content">
+    <div class="hero-layout">
+      <div>
+        <div class="hero-eyebrow reveal">
+          <span class="hero-dot"></span>
+          <span>Exclusively for Fitness Coaches</span>
+        </div>
+        <div class="hero-headline">
+          <div class="line display-xl reveal reveal-delay-1">
+            <span>Your</span>
+          </div>
+          <div class="line display-xl reveal reveal-delay-2">
+            <span class="gradient-text">Coaching</span>
+          </div>
+          <div class="line display-xl reveal reveal-delay-3">
+            <span>Deserves</span>
+          </div>
+          <div class="line display-xl reveal reveal-delay-4">
+            <span>An App.</span>
+          </div>
+        </div>
+        <p class="hero-sub reveal reveal-delay-5">We build world-class mobile apps exclusively for fitness coaches — turning your method, brand, and community into a powerful platform your clients can't live without.</p>
+        <div class="hero-actions reveal reveal-delay-5">
+          <a href="#cta" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Get Started
+          </a>
+          <a href="#results" class="btn btn-secondary">See Results</a>
+        </div>
+        <div class="hero-stats reveal reveal-delay-5">
+          <div class="stat-item">
+            <span class="stat-num" data-target="47" data-suffix="+">0</span>
+            <span class="stat-label">Apps Launched</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="2.3" data-suffix="M">0</span>
+            <span class="stat-label">End Users Served</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="98" data-suffix="%">0</span>
+            <span class="stat-label">Client Retention</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phone-mockup-wrap">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span class="phone-time">9:41</span>
+                <div class="phone-icons">
+                  <div class="phone-icon-dot"></div>
+                  <div class="phone-icon-dot"></div>
+                  <div class="phone-icon-dot"></div>
+                </div>
+              </div>
+              <div class="phone-header">
+                <div class="phone-greeting">Good morning,</div>
+                <div class="phone-title">Coach Sarah 👋</div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-label">Monthly Revenue</div>
+                <div class="phone-card-big">$24,900</div>
+                <div class="phone-card-sub">↑ 34% vs last month</div>
+                <div class="phone-bar-chart">
+                  <div class="phone-bar" style="height:40%"></div>
+                  <div class="phone-bar" style="height:55%"></div>
+                  <div class="phone-bar" style="height:48%"></div>
+                  <div class="phone-bar" style="height:70%"></div>
+                  <div class="phone-bar" style="height:62%"></div>
+                  <div class="phone-bar active" style="height:88%"></div>
+                  <div class="phone-bar active" style="height:100%"></div>
+                </div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-label">Active Clients</div>
+                <div class="phone-clients">
+                  <div class="phone-client">
+                    <div class="phone-avatar" style="background:linear-gradient(135deg,#00FF87,#00C6FF)"></div>
+                    <div class="phone-client-info">
+                      <div class="phone-client-name">Alex Johnson</div>
+                      <div class="phone-client-sub">Week 8 · On track</div>
+                    </div>
+                    <span class="phone-client-badge">Active</span>
+                  </div>
+                  <div class="phone-client">
+                    <div class="phone-avatar" style="background:linear-gradient(135deg,#5E6AD2,#FF6B35)"></div>
+                    <div class="phone-client-info">
+                      <div class="phone-client-name">Maria Lopez</div>
+                      <div class="phone-client-sub">Week 12 · PR today!</div>
+                    </div>
+                    <span class="phone-client-badge">🔥 PR</span>
+                  </div>
+                  <div class="phone-client">
+                    <div class="phone-avatar" style="background:linear-gradient(135deg,#FF6B35,#FFD700)"></div>
+                    <div class="phone-client-info">
+                      <div class="phone-client-name">David Kim</div>
+                      <div class="phone-client-sub">Week 3 · New client</div>
+                    </div>
+                    <span class="phone-client-badge">New</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating cards -->
+          <div class="float-card float-card-1 glass">
+            <div class="float-label">New Signup</div>
+            <div class="float-val" style="color:var(--accent)">+1 Client</div>
+          </div>
+          <div class="float-card float-card-2 glass">
+            <div class="float-label">App Rating</div>
+            <div class="float-val">⭐ 4.9</div>
+          </div>
+          <div class="float-card float-card-3 glass">
+            <div class="float-label">This Week</div>
+            <div class="float-val" style="color:var(--accent2)">142 Workouts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOGO BAR ──────────────────────────────────────────────────── -->
+<div id="logos" aria-label="Trusted by coaches" role="region">
+  <div class="logos-track" aria-hidden="true">
+    <span class="logo-item">APEX PERFORMANCE</span>
+    <span class="logo-item">ELITE COACHING CO.</span>
+    <span class="logo-item">IRON WOLF FITNESS</span>
+    <span class="logo-item">TRANSFORM PRO</span>
+    <span class="logo-item">PEAK PROTOCOL</span>
+    <span class="logo-item">FORM LABS</span>
+    <span class="logo-item">HUSTLE COLLECTIVE</span>
+    <span class="logo-item">LIFT CULTURE</span>
+    <span class="logo-item">APEX PERFORMANCE</span>
+    <span class="logo-item">ELITE COACHING CO.</span>
+    <span class="logo-item">IRON WOLF FITNESS</span>
+    <span class="logo-item">TRANSFORM PRO</span>
+    <span class="logo-item">PEAK PROTOCOL</span>
+    <span class="logo-item">FORM LABS</span>
+    <span class="logo-item">HUSTLE COLLECTIVE</span>
+    <span class="logo-item">LIFT CULTURE</span>
+  </div>
+</div>
+
+<!-- ─── SERVICES ──────────────────────────────────────────────────── -->
+<section id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">What We Build</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="services-heading">
+        Everything your coaching<br>business needs, in one app.
+      </h2>
+      <p class="reveal reveal-delay-2">No generic fitness app templates. Every pixel built around your coaching method, your brand, your clients.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" onmousemove="trackMouse(event, this)">
+        <div class="service-num">01</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <h3 class="service-title">Custom iOS &amp; Android App</h3>
+        <p class="service-desc">A fully branded, native-feel app with your logo, your colors, and your name in the App Store. Built with React Native for flawless performance on both platforms.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+      <div class="service-card reveal reveal-delay-1" onmousemove="trackMouse(event, this)">
+        <div class="service-num">02</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="service-title">Client Management Portal</h3>
+        <p class="service-desc">Onboard clients, track progress, send check-ins, automate billing, and manage every relationship — all from your coach dashboard. Zero admin headaches.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+      <div class="service-card reveal reveal-delay-2" onmousemove="trackMouse(event, this)">
+        <div class="service-num">03</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="service-title">Workout &amp; Program Builder</h3>
+        <p class="service-desc">Build programs once, deliver to thousands. Exercise libraries, video demonstrations, auto-progression, and real-time performance tracking built right in.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+      <div class="service-card reveal reveal-delay-3" onmousemove="trackMouse(event, this)">
+        <div class="service-num">04</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="service-title">In-App Community &amp; Chat</h3>
+        <p class="service-desc">A private community your clients actually use. Group channels, direct messaging, challenge boards, leaderboards — keep your tribe engaged and accountable.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+      <div class="service-card reveal reveal-delay-4" onmousemove="trackMouse(event, this)">
+        <div class="service-num">05</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3 class="service-title">Subscriptions &amp; Payments</h3>
+        <p class="service-desc">Automated recurring billing, upsell flows, in-app purchases, and Stripe integration. Your revenue runs on autopilot while you coach. Charge what you're worth.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+      <div class="service-card reveal reveal-delay-5" onmousemove="trackMouse(event, this)">
+        <div class="service-num">06</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="service-title">Analytics &amp; Insights</h3>
+        <p class="service-desc">Know exactly which clients need attention, which programs drive results, and where churn comes from. Data-driven coaching at a level most coaches can't access.</p>
+        <span class="service-arrow">
+          Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ────────────────────────────────────────────────────── -->
+<section id="process" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">How It Works</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="process-heading">From idea to App Store<br>in 12 weeks.</h2>
+      <p class="reveal reveal-delay-2">A proven process built from 47+ app launches. No surprises, no delays, no excuses.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">01</div>
+        </div>
+        <h3 class="step-title">Discovery Sprint</h3>
+        <p class="step-desc">We spend week one deep-diving into your coaching method, target clients, and business goals. We map every screen, every flow, every feature before a single line of code is written.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num-wrap">
+          <div class="step-num">02</div>
+        </div>
+        <h3 class="step-title">Design &amp; Prototype</h3>
+        <p class="step-desc">Weeks 2–4. You get a clickable prototype with your real brand. Test it with real clients before we build. Nothing gets developed that hasn't been approved by you.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num-wrap">
+          <div class="step-num">03</div>
+        </div>
+        <h3 class="step-title">Build &amp; Iterate</h3>
+        <p class="step-desc">Weeks 5–10. Bi-weekly demos. You see real progress, not just updates. Our team ships fast and communicates clearly — you're never left wondering what's happening.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num-wrap">
+          <div class="step-num">04</div>
+        </div>
+        <h3 class="step-title">Launch &amp; Scale</h3>
+        <p class="step-desc">Weeks 11–12. App Store submission, onboarding your first clients, and a 90-day post-launch support window. We stay on until your first 100 clients are in-app and loving it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RESULTS ────────────────────────────────────────────────────── -->
+<section id="results" aria-labelledby="results-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">Proven Results</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="results-heading">Numbers that speak<br class="hide-mobile"> for themselves.</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-card featured reveal">
+        <div class="result-metric">
+          <div class="metric-value"><span class="counter" data-target="340">0</span><span class="unit">%</span></div>
+          <div class="metric-label">Average revenue increase in 6 months post-launch</div>
+        </div>
+        <blockquote class="result-quote">"TW Studio didn't just build my app — they transformed my entire business model. I went from trading time for money to building a scalable platform that grows while I sleep."</blockquote>
+        <div class="result-author">
+          <div class="author-avatar">JC</div>
+          <div>
+            <div class="author-name">Jake Carter</div>
+            <div class="author-title">Strength Coach · 312 active clients</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal reveal-delay-1">
+        <div class="result-metrics-row">
+          <div class="mini-metric">
+            <div class="val"><span class="counter" data-target="4.9">0</span>★</div>
+            <div class="lbl">App Store rating</div>
+          </div>
+          <div class="mini-metric">
+            <div class="val"><span class="counter" data-target="47">0</span>+</div>
+            <div class="lbl">Apps launched</div>
+          </div>
+        </div>
+        <blockquote class="result-quote">"My clients tell me it's the best fitness app they've ever used. Not just the best coaching app — the best app, full stop. That brand halo is priceless."</blockquote>
+        <div class="result-author">
+          <div class="author-avatar" style="color:var(--accent2); background:var(--accent2-glow); border-color:rgba(255,107,53,0.3)">ML</div>
+          <div>
+            <div class="author-name">Marcus Lee</div>
+            <div class="author-title">Online Fitness Coach · LA</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal reveal-delay-2">
+        <div class="result-metric">
+          <div class="metric-value"><span class="counter" data-target="92">0</span><span class="unit">%</span></div>
+          <div class="metric-label">Client retention rate (industry avg. is 60%)</div>
+        </div>
+        <blockquote class="result-quote">"Client churn was killing me. Since launching my app, people stay because the experience is so good they don't want to leave — even when life gets hard."</blockquote>
+        <div class="result-author">
+          <div class="author-avatar" style="color:var(--accent3); background:var(--accent3-glow); border-color:rgba(94,106,210,0.3)">SR</div>
+          <div>
+            <div class="author-name">Sofia Reyes</div>
+            <div class="author-title">Nutrition &amp; Lifestyle Coach</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-card reveal reveal-delay-3">
+        <div class="result-metric">
+          <div class="metric-value">$<span class="counter" data-target="2.3">0</span><span class="unit">M</span></div>
+          <div class="metric-label">Collective client revenue generated via TW Studio apps</div>
+        </div>
+        <blockquote class="result-quote">"The ROI was obvious within 90 days. The app paid for itself three times over in the first quarter. I wish I'd done this two years earlier."</blockquote>
+        <div class="result-author">
+          <div class="author-avatar" style="color:#FFD700; background:rgba(255,215,0,0.1); border-color:rgba(255,215,0,0.3)">TH</div>
+          <div>
+            <div class="author-name">Tyler Hughes</div>
+            <div class="author-title">Performance Coach · 400+ clients</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────────────────── -->
+<section id="testimonials" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">Testimonials</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="testimonials-heading">Coaches who made<br>the leap.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <article class="testimonial-card glass reveal">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"TW Studio delivered an app that genuinely shocked my clients. The quality is insane for a boutique agency. Every detail — the animations, the onboarding, the notifications — all felt premium."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:var(--accent)">AW</div>
+          <div>
+            <div class="t-name">Aisha Williams</div>
+            <div class="t-handle">@aishafitpro · 82k followers</div>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card glass reveal reveal-delay-1">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"I was nervous because I'd heard horror stories about app development. But TW Studio was transparent, fast, and proactive. They communicated more than any agency I've worked with."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:var(--accent3)">DM</div>
+          <div>
+            <div class="t-name">Daniel Morris</div>
+            <div class="t-handle">Powerlifting Coach</div>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card glass reveal reveal-delay-2">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"The ROI showed up in month one. Clients stopped asking to pause, churn dropped by half, and I started getting referrals from within the app itself. It's a game-changer."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:var(--accent2)">KP</div>
+          <div>
+            <div class="t-name">Kim Park</div>
+            <div class="t-handle">Fat Loss Coach · Seoul</div>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card glass reveal reveal-delay-3">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"I scaled from 40 to 200 clients without adding any team. The automation in the app handles everything. My job is now purely coaching — which is what I was meant to do."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:#FFD700">RB</div>
+          <div>
+            <div class="t-name">Ryan Bloom</div>
+            <div class="t-handle">Hybrid Athlete Coach</div>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card glass reveal reveal-delay-4">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"I've tried three app platforms before. None came close to this. The difference is TW Studio built around MY system — not forced me into their template. It actually works the way I think."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:var(--accent)">LC</div>
+          <div>
+            <div class="t-name">Lisa Chen</div>
+            <div class="t-handle">Women's Strength Coach</div>
+          </div>
+        </div>
+      </article>
+      <article class="testimonial-card glass reveal reveal-delay-5">
+        <div class="stars" aria-label="5 stars">
+          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        </div>
+        <p class="testimonial-text">"My brand finally looks as good as my coaching is. Clients comment on the app all the time — it's a marketing asset, not just a tool. First impression with new leads is always the app."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar" style="color:var(--accent3)">JO</div>
+          <div>
+            <div class="t-name">James Okafor</div>
+            <div class="t-handle">Athletic Performance · NYC</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ────────────────────────────────────────────────────── -->
+<section id="pricing" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">Pricing</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="pricing-heading">Straightforward pricing.<br>Extraordinary value.</h2>
+      <p class="reveal reveal-delay-2">One-time build fee. Optional monthly retainer for ongoing feature development and support.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card glass reveal">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>$</sup>9,997 <span class="period">one-time</span></div>
+        <p class="plan-desc">For coaches ready to move beyond spreadsheets and generic platforms.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features" role="list">
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            iOS + Android app
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Up to 100 clients
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Workout builder
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Payment processing
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            App Store submission
+          </li>
+          <li class="plan-feature excluded" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Community features
+          </li>
+          <li class="plan-feature excluded" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Advanced analytics
+          </li>
+        </ul>
+        <a href="#cta" class="btn btn-secondary plan-cta">Get Started</a>
+      </div>
+      <div class="pricing-card glass reveal reveal-delay-1 popular">
+        <div class="popular-badge">Most Popular</div>
+        <div class="plan-name">Professional</div>
+        <div class="plan-price"><sup>$</sup>19,997 <span class="period">one-time</span></div>
+        <p class="plan-desc">For serious coaches scaling to 6 and 7 figures with a premium brand.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features" role="list">
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Starter
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited clients
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Community &amp; chat
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Advanced analytics dashboard
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Push notification system
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Nutrition tracking module
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            90-day post-launch support
+          </li>
+        </ul>
+        <a href="#cta" class="btn btn-primary plan-cta">Get Started</a>
+      </div>
+      <div class="pricing-card glass reveal reveal-delay-2">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price" style="font-size:2.5rem">Custom</div>
+        <p class="plan-desc">For coaches with existing audiences of 1,000+ or complex platform requirements.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features" role="list">
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Professional
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            White-label infrastructure
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Multi-coach support
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            API integrations
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Dedicated project manager
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Priority 24/7 support
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            SLA guarantee
+          </li>
+        </ul>
+        <a href="#cta" class="btn btn-secondary plan-cta">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ───────────────────────────────────────────────────────── -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="label label-accent reveal">FAQ</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="faq-heading">Everything you're<br>wondering about.</h2>
+    </div>
+    <div class="faq-list" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          How long does it take to build my app?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">Our standard timeline is 10–14 weeks from kickoff to App Store. Complex builds with custom features can run 16–20 weeks. We'll give you an accurate timeline after your discovery call — we don't pad our estimates.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          Do I need any technical knowledge?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">Zero. We handle every technical aspect end to end: development, hosting, App Store accounts, server setup, payment configuration — everything. Your job is to coach; our job is to build. We translate your vision without requiring you to speak developer.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          Will I own the app and the code?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">100%. You own the app, the codebase, the App Store listings, the data, and everything else. We hand over the keys completely at launch. You're not locked into us for anything — though most clients choose to stay for ongoing feature development.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          What's different about TW Studio vs. generic app platforms?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">Platforms like Trainerize or TrueCoach are built for everyone, which means they're perfect for no one. Your app is built around your exact system, your brand identity, your client journey. Clients see your name in the App Store, not ours. The result is a competitive moat that platforms can't give you.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          What happens after the app launches?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">Every build includes 90 days of post-launch support: bug fixes, App Store updates, minor adjustments, and strategy calls. After that, clients can join our monthly retainer for ongoing feature development, or manage maintenance independently. We're not going anywhere.</div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+          What if I'm not happy with the app?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer" role="region">We build in approval checkpoints throughout the process — you sign off at design, at prototype, at beta. You never get to launch with a product you're unhappy with. Our 97% client satisfaction rate over 47+ builds speaks for itself. We don't ship until you're proud of it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────── -->
+<section id="cta" aria-labelledby="cta-heading">
+  <div class="container">
+    <div class="cta-box reveal">
+      <span class="label label-accent" style="display:block;margin-bottom:16px">Ready to Build?</span>
+      <h2 class="display-lg" id="cta-heading">Your clients deserve<br>better than average.</h2>
+      <p>Book a free 30-minute strategy call. We'll map out your app concept, give you a timeline, and be straight about whether we're the right fit.</p>
+      <div class="cta-actions">
+        <a href="mailto:hello@twstudio.dev" class="btn btn-primary" style="font-size:1rem;padding:16px 36px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Book Free Strategy Call
+        </a>
+        <a href="mailto:hello@twstudio.dev" class="btn btn-secondary" style="font-size:1rem;padding:16px 36px">See Portfolio</a>
+      </div>
+      <div class="cta-trust">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        No commitment · No sales pressure · Response within 24 hours
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <a href="#hero" class="nav-logo" aria-label="TW Studio">
+            <div class="nav-logo-mark" aria-hidden="true">TW</div>
+            TW Studio
+          </a>
+        </div>
+        <p class="footer-tagline">We build premium mobile apps exclusively for fitness coaches who are serious about scaling.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Custom App Development</a></li>
+          <li><a href="#services">Client Management</a></li>
+          <li><a href="#services">Workout Builder</a></li>
+          <li><a href="#services">Community Features</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#results">Case Studies</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@twstudio.dev">hello@twstudio.dev</a></li>
+          <li><a href="#cta">Book a Call</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span class="footer-accent">TW Studio</span>. All rights reserved.</span>
+      <span>Built for fitness coaches. Built to last.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ────────────────────────────────────────────────────── -->
+<script>
+  // ── Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── Cursor glow
+  const glow = document.getElementById('cursorGlow');
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  (function animGlow() {
+    cx += (mx - cx) * 0.08;
+    cy += (my - cy) * 0.08;
+    glow.style.left = cx + 'px';
+    glow.style.top = cy + 'px';
+    requestAnimationFrame(animGlow);
+  })();
+
+  // ── Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => revealObs.observe(el));
+
+  // ── Counter animation
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const isDecimal = target % 1 !== 0;
+    const duration = 1800;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const val = target * ease;
+      el.textContent = isDecimal ? val.toFixed(1) : Math.round(val);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = isDecimal ? target.toFixed(1) : target;
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-target]');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObs.observe(c));
+
+  // ── Service card mouse tracking
+  function trackMouse(e, el) {
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+    el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+  }
+
+  // ── FAQ accordion
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-answer.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('open');
+      a.previousElementSibling.setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  // ── Smooth hero text entrance
+  document.querySelectorAll('.hero-headline .line span').forEach((el, i) => {
+    el.style.transform = 'translateY(100%)';
+    el.style.opacity = '0';
+    el.style.transition = `transform 0.9s cubic-bezier(0.16,1,0.3,1) ${0.1 + i*0.12}s, opacity 0.6s ease ${0.1 + i*0.12}s`;
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        el.style.transform = 'translateY(0)';
+        el.style.opacity = '1';
+      }, 50);
+    });
+  });
+</script>
+</body>
+</html>
