@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TW Studio — Custom Apps for Fitness Coaches</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+  <script>window.Motion = window.FramerMotion;</script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .liquid-glass {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: none;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.15) 20%,
+        rgba(255,255,255,0)    40%,
+        rgba(255,255,255,0)    60%,
+        rgba(255,255,255,0.15) 80%,
+        rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .liquid-glass-strong {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: none;
+      box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass-strong::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.5) 0%,
+        rgba(255,255,255,0.2) 20%,
+        rgba(255,255,255,0)   40%,
+        rgba(255,255,255,0)   60%,
+        rgba(255,255,255,0.2) 80%,
+        rgba(255,255,255,0.5) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["'Instrument Serif'", 'serif'],
+            body:    ["'Barlow'", 'sans-serif'],
+          },
+          borderRadius: {
+            DEFAULT: '9999px',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-black">
+  <div id="root"></div>
+
+  <!-- ── FadingVideo ────────────────────────────────────────────── -->
+  <script type="text/babel">
+    const { useRef, useEffect } = React;
+
+    const FADE_MS      = 500;
+    const FADE_OUT_LEAD = 0.55;
+
+    function FadingVideo({ src, className, style }) {
+      const videoRef    = useRef(null);
+      const rafRef      = useRef(null);
+      const fadingOutRef = useRef(false);
+
+      function fadeTo(video, target, duration) {
+        cancelAnimationFrame(rafRef.current);
+        const start        = performance.now();
+        const startOpacity = parseFloat(video.style.opacity) || 0;
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          video.style.opacity = startOpacity + (target - startOpacity) * progress;
+          if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+        }
+        rafRef.current = requestAnimationFrame(tick);
+      }
+
+      useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        function onLoadedData() {
+          video.style.opacity = 0;
+          video.play().catch(() => {});
+          fadeTo(video, 1, FADE_MS);
+        }
+
+        function onTimeUpdate() {
+          const remaining = video.duration - video.currentTime;
+          if (!fadingOutRef.current && video.duration && remaining <= FADE_OUT_LEAD && remaining > 0) {
+            fadingOutRef.current = true;
+            fadeTo(video, 0, FADE_MS);
+          }
+        }
+
+        function onEnded() {
+          video.style.opacity = 0;
+          setTimeout(() => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+            fadingOutRef.current = false;
+            fadeTo(video, 1, FADE_MS);
+          }, 100);
+        }
+
+        video.addEventListener('loadeddata', onLoadedData);
+        video.addEventListener('timeupdate', onTimeUpdate);
+        video.addEventListener('ended',      onEnded);
+
+        return () => {
+          cancelAnimationFrame(rafRef.current);
+          video.removeEventListener('loadeddata', onLoadedData);
+          video.removeEventListener('timeupdate', onTimeUpdate);
+          video.removeEventListener('ended',      onEnded);
+        };
+      }, []);
+
+      return (
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          className={className}
+          style={{ ...style, opacity: 0 }}
+        />
+      );
+    }
+
+    window.FadingVideo = FadingVideo;
+  </script>
+
+  <!-- ── BlurText ───────────────────────────────────────────────── -->
+  <script type="text/babel">
+    const { useRef: useRefBT, useEffect: useEffectBT, useState: useStateBT } = React;
+    const { motion } = window.Motion;
+
+    function BlurText({ text, className }) {
+      const containerRef = useRefBT(null);
+      const [triggered, setTriggered] = useStateBT(false);
+      const words = text.split(' ');
+
+      useEffectBT(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+          ([entry]) => { if (entry.isIntersecting) setTriggered(true); },
+          { threshold: 0.1 }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, []);
+
+      return (
+        <p
+          ref={containerRef}
+          className={className}
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', rowGap: '0.1em' }}
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ filter: 'blur(10px)', opacity: 0, y: 50 }}
+              animate={triggered
+                ? { filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'],
+                    opacity: [0, 0.5, 1],
+                    y:       [50, -5, 0] }
+                : {}}
+              transition={{ duration: 0.7, delay: (i * 100) / 1000, ease: 'easeOut', times: [0, 0.5, 1] }}
+              style={{ display: 'inline-block', marginRight: '0.28em' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </p>
+      );
+    }
+
+    window.BlurText = BlurText;
+  </script>
+
+  <!-- ── Icons ─────────────────────────────────────────────────── -->
+  <script type="text/babel">
+    function ArrowUpRight({ className = "h-5 w-5" }) {
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+             strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <line x1="7"  y1="17" x2="17" y2="7" />
+          <polyline points="7 7 17 7 17 17" />
+        </svg>
+      );
+    }
+
+    function PlayIcon({ className = "h-4 w-4" }) {
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+          <polygon points="6 4 20 12 6 20 6 4" />
+        </svg>
+      );
+    }
+
+    window.ArrowUpRight = ArrowUpRight;
+    window.PlayIcon     = PlayIcon;
+  </script>
+
+  <!-- ── Navbar ─────────────────────────────────────────────────── -->
+  <script type="text/babel">
+    function Navbar() {
+      const links = ['Home', 'Services', 'Process', 'Portfolio', 'Pricing'];
+      return (
+        <nav className="fixed top-4 left-0 right-0 z-50 px-8 lg:px-16 flex items-center justify-between">
+          {/* Logo mark */}
+          <div className="liquid-glass w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="font-heading italic text-white text-lg leading-none">tw</span>
+          </div>
+
+          {/* Centre pill — desktop */}
+          <div className="hidden lg:flex items-center liquid-glass rounded-full px-1.5 py-1.5 gap-1">
+            {links.map(l => (
+              <a key={l} href="#"
+                 className="px-3 py-2 text-sm font-medium text-white/90 font-body whitespace-nowrap hover:text-white transition-colors">
+                {l}
+              </a>
+            ))}
+            <a href="#"
+               className="bg-white text-black rounded-full px-4 py-2 text-sm font-semibold font-body whitespace-nowrap flex items-center gap-1.5 ml-1">
+              Book a Call <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          {/* Balance spacer */}
+          <div className="w-12 h-12 flex-shrink-0 invisible" aria-hidden="true" />
+        </nav>
+      );
+    }
+
+    window.Navbar = Navbar;
+  </script>
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <script type="text/babel">
+    const { motion: m } = window.Motion;
+
+    const fadeIn = (delay) => ({
+      initial:    { filter: 'blur(10px)', opacity: 0, y: 20 },
+      animate:    { filter: 'blur(0px)',  opacity: 1, y: 0  },
+      transition: { duration: 0.6, delay, ease: 'easeOut' },
+    });
+
+    function Hero() {
+      return (
+        <section className="relative w-full h-screen overflow-hidden bg-black flex flex-col">
+          {/* Background — 120 % wide, top-aligned */}
+          <FadingVideo
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+            className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+            style={{ width: '120%', height: '120%' }}
+          />
+
+          <div className="relative z-10 flex flex-col h-full">
+            <Navbar />
+
+            {/* ── Main content ── */}
+            <div className="flex-1 flex flex-col items-center justify-center pt-24 px-4 text-center">
+
+              {/* Badge */}
+              <m.div {...fadeIn(0.4)}
+                className="liquid-glass rounded-full flex items-center gap-2 px-1.5 py-1.5 mb-6">
+                <span className="bg-white text-black rounded-full px-3 py-1 text-xs font-semibold font-body">
+                  New
+                </span>
+                <span className="text-sm text-white/90 font-body pr-3">
+                  First fitness coaching app — now live on the App Store
+                </span>
+              </m.div>
+
+              {/* Headline — word-by-word blur */}
+              <BlurText
+                text="Build the App Your Coaching Deserves"
+                className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl tracking-[-4px]"
+              />
+
+              {/* Sub */}
+              <m.p {...fadeIn(0.8)}
+                className="mt-4 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight">
+                A custom iOS and Android app built around your method, your brand, and your clients — for a flat $2,500. No templates, no agency overhead. Just a clean, professional app that's entirely yours.
+              </m.p>
+
+              {/* CTAs */}
+              <m.div {...fadeIn(1.1)} className="flex items-center gap-6 mt-6">
+                <button className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium text-white font-body flex items-center gap-2 cursor-pointer">
+                  Start Your App <ArrowUpRight className="h-5 w-5" />
+                </button>
+                <button className="text-white text-sm font-body font-medium flex items-center gap-2 cursor-pointer">
+                  See the Work <PlayIcon className="h-4 w-4" />
+                </button>
+              </m.div>
+
+              {/* Stats */}
+              <m.div {...fadeIn(1.3)} className="flex items-stretch gap-4 mt-8">
+                {/* Time */}
+                <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col gap-3">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                       stroke="white" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <div>
+                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">
+                      12 Wks
+                    </div>
+                    <div className="text-xs text-white font-body font-light mt-2">
+                      Average Time to App Store Launch
+                    </div>
+                  </div>
+                </div>
+                {/* Price */}
+                <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col gap-3">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                       stroke="white" strokeWidth="1.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                    <line x1="8"  y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                  <div>
+                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">
+                      $2,500
+                    </div>
+                    <div className="text-xs text-white font-body font-light mt-2">
+                      Flat Rate, Complete App Build
+                    </div>
+                  </div>
+                </div>
+              </m.div>
+            </div>
+
+            {/* ── Partners / niches ── */}
+            <m.div {...fadeIn(1.4)} className="flex flex-col items-center gap-4 pb-8">
+              <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body">
+                Built for coaches across every fitness niche
+              </div>
+              <div className="flex items-center gap-12 md:gap-16">
+                {['Strength', 'Nutrition', 'Hybrid', 'Mindset', 'Mobility'].map(name => (
+                  <span key={name}
+                    className="font-heading italic text-white text-2xl md:text-3xl tracking-tight">
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </m.div>
+          </div>
+        </section>
+      );
+    }
+
+    window.Hero = Hero;
+  </script>
+
+  <!-- ── Capabilities ───────────────────────────────────────────── -->
+  <script type="text/babel">
+    const cards = [
+      {
+        icon: (
+          /* phone / app icon */
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white">
+            <path d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z"/>
+          </svg>
+        ),
+        tags:  ['iOS & Android', 'Your Brand', 'App Store Ready', 'React Native'],
+        title: 'Custom App Build',
+        body:  'A fully branded iOS and Android app shaped around your coaching method — not a template. Your logo, your colors, your name in the App Store.',
+      },
+      {
+        icon: (
+          /* price tag icon */
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white">
+            <path d="M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z"/>
+          </svg>
+        ),
+        tags:  ['$2,500 Flat', 'No Hidden Fees', 'Scoped Upfront', 'Add-ons Available'],
+        title: 'Flat-Rate Pricing',
+        body:  'One price, everything included. Scope is locked before a single line is written — so there are no surprises, and you own the code from day one.',
+      },
+      {
+        icon: (
+          /* person / direct access icon */
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white">
+            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z"/>
+          </svg>
+        ),
+        tags:  ['1:1 Access', 'Same-Day Replies', '12-Week Build', '30-Day Support'],
+        title: 'Direct Collaboration',
+        body:  'You work with the developer directly — no account managers, no queues. Questions get answered the same day and decisions happen fast.',
+      },
+    ];
+
+    function Capabilities() {
+      return (
+        <section className="relative min-h-screen overflow-hidden bg-black">
+          <FadingVideo
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            style={{}}
+          />
+
+          <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-10 flex flex-col min-h-screen">
+
+            {/* Header */}
+            <div className="mb-auto">
+              <p className="text-sm font-body text-white/80 mb-6">// What You Get</p>
+              <h2 className="font-heading italic text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-[-3px]">
+                Coaching apps<br />done right
+              </h2>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+              {cards.map((card, i) => (
+                <div key={i} className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
+
+                  {/* Top row */}
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="liquid-glass w-11 h-11 rounded-[0.75rem] flex items-center justify-center flex-shrink-0">
+                      {card.icon}
+                    </div>
+                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                      {card.tags.map(tag => (
+                        <span key={tag}
+                          className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Spacer */}
+                  <div className="flex-1" />
+
+                  {/* Bottom */}
+                  <div className="mt-6">
+                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">
+                      {card.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                      {card.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      );
+    }
+
+    window.Capabilities = Capabilities;
+  </script>
+
+  <!-- ── App root ───────────────────────────────────────────────── -->
+  <script type="text/babel">
+    /* Suppress benign Framer Motion list-key warnings */
+    const _origErr = console.error;
+    console.error = (...args) => {
+      if (typeof args[0] === 'string' && args[0].includes('Each child in a list')) return;
+      _origErr(...args);
+    };
+
+    function App() {
+      return (
+        <>
+          <Hero />
+          <Capabilities />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
