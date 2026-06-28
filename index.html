@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TW Studio — Apps That Transform Coaching Businesses</title>
-  <meta name="description" content="TW Studio builds premium mobile apps exclusively for fitness coaches. Turn your coaching method into a world-class app experience." />
+  <title>TW Studio — Custom Apps for Fitness Coaches</title>
+  <meta name="description" content="TW Studio builds custom mobile apps for fitness coaches. Your brand, your system, your app — at a price that actually makes sense." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -383,6 +383,7 @@
     /* ─── RESULTS / PORTFOLIO ────────────────────────────────────── */
     #results { padding: 120px 0; position: relative; z-index: 2; }
     .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .results-grid [style*="grid-column:span 2"] { grid-column: span 2; }
     .result-card {
       background: var(--bg-elevated); padding: 56px 48px;
       display: flex; flex-direction: column; gap: 40px;
@@ -421,7 +422,7 @@
 
     /* ─── PRICING ────────────────────────────────────────────────── */
     #pricing { padding: 120px 0; position: relative; z-index: 2; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 980px; margin: 0 auto; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 780px; margin: 0 auto; }
     .pricing-card { padding: 40px 36px; position: relative; overflow: hidden; }
     .pricing-card.popular {
       border-color: rgba(0,255,135,0.3);
@@ -616,7 +617,7 @@
             <span>An App.</span>
           </div>
         </div>
-        <p class="hero-sub reveal reveal-delay-5">We build world-class mobile apps exclusively for fitness coaches — turning your method, brand, and community into a powerful platform your clients can't live without.</p>
+        <p class="hero-sub reveal reveal-delay-5">I build custom mobile apps for fitness coaches — turning your coaching method, your brand, and your community into a platform your clients actually want to use. No templates. No bloat. Just a clean app built around you.</p>
         <div class="hero-actions reveal reveal-delay-5">
           <a href="#cta" class="btn btn-primary">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -626,16 +627,16 @@
         </div>
         <div class="hero-stats reveal reveal-delay-5">
           <div class="stat-item">
-            <span class="stat-num" data-target="47" data-suffix="+">0</span>
-            <span class="stat-label">Apps Launched</span>
+            <span class="stat-num" style="font-size:1.8rem">$2,500</span>
+            <span class="stat-label">Complete App Build</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num" data-target="2.3" data-suffix="M">0</span>
-            <span class="stat-label">End Users Served</span>
+            <span class="stat-num" style="font-size:1.8rem">12wk</span>
+            <span class="stat-label">Avg. Delivery Time</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num" data-target="98" data-suffix="%">0</span>
-            <span class="stat-label">Client Retention</span>
+            <span class="stat-num" style="font-size:1.8rem">1:1</span>
+            <span class="stat-label">Direct Collaboration</span>
           </div>
         </div>
       </div>
@@ -720,25 +721,33 @@
   </div>
 </section>
 
-<!-- ─── LOGO BAR ──────────────────────────────────────────────────── -->
-<div id="logos" aria-label="Trusted by coaches" role="region">
+<!-- ─── VALUE BAR ──────────────────────────────────────────────────── -->
+<div id="logos" aria-label="Why TW Studio" role="region">
   <div class="logos-track" aria-hidden="true">
-    <span class="logo-item">APEX PERFORMANCE</span>
-    <span class="logo-item">ELITE COACHING CO.</span>
-    <span class="logo-item">IRON WOLF FITNESS</span>
-    <span class="logo-item">TRANSFORM PRO</span>
-    <span class="logo-item">PEAK PROTOCOL</span>
-    <span class="logo-item">FORM LABS</span>
-    <span class="logo-item">HUSTLE COLLECTIVE</span>
-    <span class="logo-item">LIFT CULTURE</span>
-    <span class="logo-item">APEX PERFORMANCE</span>
-    <span class="logo-item">ELITE COACHING CO.</span>
-    <span class="logo-item">IRON WOLF FITNESS</span>
-    <span class="logo-item">TRANSFORM PRO</span>
-    <span class="logo-item">PEAK PROTOCOL</span>
-    <span class="logo-item">FORM LABS</span>
-    <span class="logo-item">HUSTLE COLLECTIVE</span>
-    <span class="logo-item">LIFT CULTURE</span>
+    <span class="logo-item">BUILT FOR FITNESS COACHES</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">FLAT-RATE PRICING</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">iOS + ANDROID</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">YOUR BRAND IN THE APP STORE</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">YOU OWN THE CODE</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">NO TEMPLATES</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">BUILT FOR FITNESS COACHES</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">FLAT-RATE PRICING</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">iOS + ANDROID</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">YOUR BRAND IN THE APP STORE</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">YOU OWN THE CODE</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">NO TEMPLATES</span>
+    <span class="logo-item">·</span>
   </div>
 </div>
 
@@ -748,9 +757,9 @@
     <div class="section-header">
       <span class="label label-accent reveal">What We Build</span>
       <h2 class="display-lg reveal reveal-delay-1" id="services-heading">
-        Everything your coaching<br>business needs, in one app.
+        Everything a fitness coach<br>needs. Nothing they don't.
       </h2>
-      <p class="reveal reveal-delay-2">No generic fitness app templates. Every pixel built around your coaching method, your brand, your clients.</p>
+      <p class="reveal reveal-delay-2">I scope every build to what you actually need — not a bloated feature list that inflates the price and delays the launch.</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal" onmousemove="trackMouse(event, this)">
@@ -835,7 +844,7 @@
     <div class="section-header">
       <span class="label label-accent reveal">How It Works</span>
       <h2 class="display-lg reveal reveal-delay-1" id="process-heading">From idea to App Store<br>in 12 weeks.</h2>
-      <p class="reveal reveal-delay-2">A proven process built from 47+ app launches. No surprises, no delays, no excuses.</p>
+      <p class="reveal reveal-delay-2">A clear, structured process with full transparency at every step. You'll always know where your app is at.</p>
     </div>
     <div class="process-grid">
       <div class="process-step reveal">
@@ -874,70 +883,27 @@
 <section id="results" aria-labelledby="results-heading">
   <div class="container">
     <div class="section-header">
-      <span class="label label-accent reveal">Proven Results</span>
-      <h2 class="display-lg reveal reveal-delay-1" id="results-heading">Numbers that speak<br class="hide-mobile"> for themselves.</h2>
+      <span class="label label-accent reveal">The Honest Pitch</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="results-heading">Early stage. Full skill.<br>Transparent pricing.</h2>
+      <p class="reveal reveal-delay-2">TW Studio is new — and that's actually good news for you.</p>
     </div>
     <div class="results-grid">
-      <div class="result-card featured reveal">
+      <div class="result-card featured reveal" style="grid-column:span 2">
         <div class="result-metric">
-          <div class="metric-value"><span class="counter" data-target="340">0</span><span class="unit">%</span></div>
-          <div class="metric-label">Average revenue increase in 6 months post-launch</div>
-        </div>
-        <blockquote class="result-quote">"TW Studio didn't just build my app — they transformed my entire business model. I went from trading time for money to building a scalable platform that grows while I sleep."</blockquote>
-        <div class="result-author">
-          <div class="author-avatar">JC</div>
-          <div>
-            <div class="author-name">Jake Carter</div>
-            <div class="author-title">Strength Coach · 312 active clients</div>
-          </div>
+          <div class="metric-value" style="font-size:3rem;line-height:1.2">One app live.<br><span style="color:var(--accent)">Built right.</span></div>
+          <div class="metric-label" style="margin-top:16px;font-size:1rem;max-width:560px;line-height:1.75">I've shipped one real fitness coaching app end-to-end — designed, developed, deployed to the App Store, and actively used by real clients. I'm not going to pretend it's fifty. What I can tell you is that every hour of that build went into knowing exactly what fitness coaches need and how to deliver it cleanly.</div>
         </div>
       </div>
       <div class="result-card reveal reveal-delay-1">
-        <div class="result-metrics-row">
-          <div class="mini-metric">
-            <div class="val"><span class="counter" data-target="4.9">0</span>★</div>
-            <div class="lbl">App Store rating</div>
-          </div>
-          <div class="mini-metric">
-            <div class="val"><span class="counter" data-target="47">0</span>+</div>
-            <div class="lbl">Apps launched</div>
-          </div>
-        </div>
-        <blockquote class="result-quote">"My clients tell me it's the best fitness app they've ever used. Not just the best coaching app — the best app, full stop. That brand halo is priceless."</blockquote>
-        <div class="result-author">
-          <div class="author-avatar" style="color:var(--accent2); background:var(--accent2-glow); border-color:rgba(255,107,53,0.3)">ML</div>
-          <div>
-            <div class="author-name">Marcus Lee</div>
-            <div class="author-title">Online Fitness Coach · LA</div>
-          </div>
+        <div class="result-metric">
+          <div class="metric-value" style="font-size:2.2rem">You get my<br><span class="unit">full attention.</span></div>
+          <div class="metric-label" style="margin-top:12px">I'm not an agency juggling 30 projects. When you're my client, you work directly with me — the person who writes the code, designs the screens, and answers the messages. That's rare and it matters.</div>
         </div>
       </div>
       <div class="result-card reveal reveal-delay-2">
         <div class="result-metric">
-          <div class="metric-value"><span class="counter" data-target="92">0</span><span class="unit">%</span></div>
-          <div class="metric-label">Client retention rate (industry avg. is 60%)</div>
-        </div>
-        <blockquote class="result-quote">"Client churn was killing me. Since launching my app, people stay because the experience is so good they don't want to leave — even when life gets hard."</blockquote>
-        <div class="result-author">
-          <div class="author-avatar" style="color:var(--accent3); background:var(--accent3-glow); border-color:rgba(94,106,210,0.3)">SR</div>
-          <div>
-            <div class="author-name">Sofia Reyes</div>
-            <div class="author-title">Nutrition &amp; Lifestyle Coach</div>
-          </div>
-        </div>
-      </div>
-      <div class="result-card reveal reveal-delay-3">
-        <div class="result-metric">
-          <div class="metric-value">$<span class="counter" data-target="2.3">0</span><span class="unit">M</span></div>
-          <div class="metric-label">Collective client revenue generated via TW Studio apps</div>
-        </div>
-        <blockquote class="result-quote">"The ROI was obvious within 90 days. The app paid for itself three times over in the first quarter. I wish I'd done this two years earlier."</blockquote>
-        <div class="result-author">
-          <div class="author-avatar" style="color:#FFD700; background:rgba(255,215,0,0.1); border-color:rgba(255,215,0,0.3)">TH</div>
-          <div>
-            <div class="author-name">Tyler Hughes</div>
-            <div class="author-title">Performance Coach · 400+ clients</div>
-          </div>
+          <div class="metric-value" style="font-size:2.2rem">$2,500<span class="unit" style="font-size:1.2rem"> flat.</span></div>
+          <div class="metric-label" style="margin-top:12px">Because I'm building my portfolio, the price reflects that reality. You get a custom, professionally built app at a fraction of what an established agency would charge — without any compromise on quality.</div>
         </div>
       </div>
     </div>
@@ -948,87 +914,31 @@
 <section id="testimonials" aria-labelledby="testimonials-heading">
   <div class="container">
     <div class="section-header">
-      <span class="label label-accent reveal">Testimonials</span>
-      <h2 class="display-lg reveal reveal-delay-1" id="testimonials-heading">Coaches who made<br>the leap.</h2>
+      <span class="label label-accent reveal">Why Early-Stage Works For You</span>
+      <h2 class="display-lg reveal reveal-delay-1" id="testimonials-heading">What you actually<br>get from this deal.</h2>
+      <p class="reveal reveal-delay-2">Here's the real value of being one of the first coaches through the door.</p>
     </div>
     <div class="testimonials-grid">
       <article class="testimonial-card glass reveal">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        <div class="service-icon" style="margin-bottom:0" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <p class="testimonial-text">"TW Studio delivered an app that genuinely shocked my clients. The quality is insane for a boutique agency. Every detail — the animations, the onboarding, the notifications — all felt premium."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:var(--accent)">AW</div>
-          <div>
-            <div class="t-name">Aisha Williams</div>
-            <div class="t-handle">@aishafitpro · 82k followers</div>
-          </div>
-        </div>
+        <p class="testimonial-text" style="color:var(--text)">"Agency-quality build at startup prices."</p>
+        <p class="testimonial-text">The code quality, design thinking, and attention to UX detail are the same regardless of how many apps I've shipped. What scales with experience is client management — and I'm giving you direct, undivided access.</p>
       </article>
       <article class="testimonial-card glass reveal reveal-delay-1">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        <div class="service-icon" style="margin-bottom:0" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <p class="testimonial-text">"I was nervous because I'd heard horror stories about app development. But TW Studio was transparent, fast, and proactive. They communicated more than any agency I've worked with."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:var(--accent3)">DM</div>
-          <div>
-            <div class="t-name">Daniel Morris</div>
-            <div class="t-handle">Powerlifting Coach</div>
-          </div>
-        </div>
+        <p class="testimonial-text" style="color:var(--text)">"Faster turnaround than a busy agency."</p>
+        <p class="testimonial-text">No account manager overhead. No project queue. I take on one client at a time, which means your build doesn't compete for attention. Questions get answered same day. Decisions happen fast.</p>
       </article>
       <article class="testimonial-card glass reveal reveal-delay-2">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
+        <div class="service-icon" style="margin-bottom:0" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <p class="testimonial-text">"The ROI showed up in month one. Clients stopped asking to pause, churn dropped by half, and I started getting referrals from within the app itself. It's a game-changer."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:var(--accent2)">KP</div>
-          <div>
-            <div class="t-name">Kim Park</div>
-            <div class="t-handle">Fat Loss Coach · Seoul</div>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card glass reveal reveal-delay-3">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
-        </div>
-        <p class="testimonial-text">"I scaled from 40 to 200 clients without adding any team. The automation in the app handles everything. My job is now purely coaching — which is what I was meant to do."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:#FFD700">RB</div>
-          <div>
-            <div class="t-name">Ryan Bloom</div>
-            <div class="t-handle">Hybrid Athlete Coach</div>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card glass reveal reveal-delay-4">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
-        </div>
-        <p class="testimonial-text">"I've tried three app platforms before. None came close to this. The difference is TW Studio built around MY system — not forced me into their template. It actually works the way I think."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:var(--accent)">LC</div>
-          <div>
-            <div class="t-name">Lisa Chen</div>
-            <div class="t-handle">Women's Strength Coach</div>
-          </div>
-        </div>
-      </article>
-      <article class="testimonial-card glass reveal reveal-delay-5">
-        <div class="stars" aria-label="5 stars">
-          <span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span><span class="star" aria-hidden="true">★</span>
-        </div>
-        <p class="testimonial-text">"My brand finally looks as good as my coaching is. Clients comment on the app all the time — it's a marketing asset, not just a tool. First impression with new leads is always the app."</p>
-        <div class="testimonial-author">
-          <div class="t-avatar" style="color:var(--accent3)">JO</div>
-          <div>
-            <div class="t-name">James Okafor</div>
-            <div class="t-handle">Athletic Performance · NYC</div>
-          </div>
-        </div>
+        <p class="testimonial-text" style="color:var(--text)">"You're not a number, you're the client."</p>
+        <p class="testimonial-text">You get my personal number, my full availability, and a partner who's genuinely invested in the success of your app — because your testimonial and your referral is what grows TW Studio. That's real alignment.</p>
       </article>
     </div>
   </div>
@@ -1039,121 +949,88 @@
   <div class="container">
     <div class="section-header">
       <span class="label label-accent reveal">Pricing</span>
-      <h2 class="display-lg reveal reveal-delay-1" id="pricing-heading">Straightforward pricing.<br>Extraordinary value.</h2>
-      <p class="reveal reveal-delay-2">One-time build fee. Optional monthly retainer for ongoing feature development and support.</p>
+      <h2 class="display-lg reveal reveal-delay-1" id="pricing-heading">One price.<br>No surprises.</h2>
+      <p class="reveal reveal-delay-2">No tiered confusion. A complete, custom-built fitness coaching app for a flat fee — scoped to what you actually need.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="pricing-card glass reveal">
-        <div class="plan-name">Starter</div>
-        <div class="plan-price"><sup>$</sup>9,997 <span class="period">one-time</span></div>
-        <p class="plan-desc">For coaches ready to move beyond spreadsheets and generic platforms.</p>
+    <div class="pricing-grid" style="max-width:780px">
+      <div class="pricing-card glass reveal" style="grid-column:span 1">
+        <div class="plan-name">Complete App Build</div>
+        <div class="plan-price"><sup>$</sup>2,500 <span class="period">one-time</span></div>
+        <p class="plan-desc">Everything you need to launch a real, branded fitness coaching app on the App Store and Google Play.</p>
         <div class="plan-divider"></div>
         <ul class="plan-features" role="list">
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            iOS + Android app
+            iOS + Android (React Native)
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Up to 100 clients
+            Your brand — name, logo, colors
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Workout builder
+            Client onboarding + profiles
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Payment processing
+            Workout / program builder
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            App Store submission
+            Progress tracking
           </li>
-          <li class="plan-feature excluded" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Community features
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Stripe payment integration
           </li>
-          <li class="plan-feature excluded" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Advanced analytics
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            App Store + Play Store submission
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            30 days post-launch support
+          </li>
+          <li class="plan-feature included" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Full code ownership — yours forever
           </li>
         </ul>
-        <a href="#cta" class="btn btn-secondary plan-cta">Get Started</a>
+        <a href="#cta" class="btn btn-primary plan-cta">Book a Free Call</a>
       </div>
-      <div class="pricing-card glass reveal reveal-delay-1 popular">
-        <div class="popular-badge">Most Popular</div>
-        <div class="plan-name">Professional</div>
-        <div class="plan-price"><sup>$</sup>19,997 <span class="period">one-time</span></div>
-        <p class="plan-desc">For serious coaches scaling to 6 and 7 figures with a premium brand.</p>
-        <div class="plan-divider"></div>
+      <div class="pricing-card glass reveal reveal-delay-1 popular" style="display:flex;flex-direction:column;justify-content:center;gap:24px">
+        <div class="popular-badge">Add-ons</div>
+        <div>
+          <div class="plan-name" style="margin-bottom:8px">Need more?</div>
+          <p style="color:var(--text-muted);font-size:0.875rem;line-height:1.7">Extra features can be scoped and priced separately after your discovery call. Common add-ons:</p>
+        </div>
         <ul class="plan-features" role="list">
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Everything in Starter
+            In-app community / group chat
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Unlimited clients
+            Nutrition logging module
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Community &amp; chat
+            Video library hosting
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Advanced analytics dashboard
+            Push notifications
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Push notification system
+            Coach web dashboard
           </li>
           <li class="plan-feature included" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Nutrition tracking module
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            90-day post-launch support
+            Ongoing monthly retainer
           </li>
         </ul>
-        <a href="#cta" class="btn btn-primary plan-cta">Get Started</a>
-      </div>
-      <div class="pricing-card glass reveal reveal-delay-2">
-        <div class="plan-name">Enterprise</div>
-        <div class="plan-price" style="font-size:2.5rem">Custom</div>
-        <p class="plan-desc">For coaches with existing audiences of 1,000+ or complex platform requirements.</p>
-        <div class="plan-divider"></div>
-        <ul class="plan-features" role="list">
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Everything in Professional
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            White-label infrastructure
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Multi-coach support
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            API integrations
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Dedicated project manager
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Priority 24/7 support
-          </li>
-          <li class="plan-feature included" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            SLA guarantee
-          </li>
-        </ul>
-        <a href="#cta" class="btn btn-secondary plan-cta">Talk to Us</a>
+        <a href="#cta" class="btn btn-secondary plan-cta">Let's Scope It</a>
       </div>
     </div>
   </div>
@@ -1193,7 +1070,7 @@
           What's different about TW Studio vs. generic app platforms?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-answer" role="region">Platforms like Trainerize or TrueCoach are built for everyone, which means they're perfect for no one. Your app is built around your exact system, your brand identity, your client journey. Clients see your name in the App Store, not ours. The result is a competitive moat that platforms can't give you.</div>
+        <div class="faq-answer" role="region">Platforms like Trainerize or TrueCoach are built for everyone, which means they're perfect for no one. Your app is built around your exact system, your brand, your client journey — and your name is the one in the App Store, not theirs. At $2,500 you're also paying less than most annual platform subscriptions.</div>
       </div>
       <div class="faq-item" role="listitem">
         <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
@@ -1207,7 +1084,7 @@
           What if I'm not happy with the app?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-answer" role="region">We build in approval checkpoints throughout the process — you sign off at design, at prototype, at beta. You never get to launch with a product you're unhappy with. Our 97% client satisfaction rate over 47+ builds speaks for itself. We don't ship until you're proud of it.</div>
+        <div class="faq-answer" role="region">We build in approval checkpoints throughout the process — you sign off at design, at prototype, at beta. You never reach launch with a product you're unhappy with. I don't ship until you're proud of it. Simple as that.</div>
       </div>
     </div>
   </div>
@@ -1218,8 +1095,8 @@
   <div class="container">
     <div class="cta-box reveal">
       <span class="label label-accent" style="display:block;margin-bottom:16px">Ready to Build?</span>
-      <h2 class="display-lg" id="cta-heading">Your clients deserve<br>better than average.</h2>
-      <p>Book a free 30-minute strategy call. We'll map out your app concept, give you a timeline, and be straight about whether we're the right fit.</p>
+      <h2 class="display-lg" id="cta-heading">Ready to build<br>your app?</h2>
+      <p>Book a free 30-minute call. We'll map out your app concept, confirm what's in scope for $2,500, and be straight with each other about whether it's a good fit.</p>
       <div class="cta-actions">
         <a href="mailto:hello@twstudio.dev" class="btn btn-primary" style="font-size:1rem;padding:16px 36px">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
